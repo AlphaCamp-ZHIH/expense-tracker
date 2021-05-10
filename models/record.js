@@ -24,7 +24,6 @@ const record = new Schema({
   },
   merchant: {
     type: String,
-    required: true,
   },
 });
 
