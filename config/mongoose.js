@@ -1,12 +1,15 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/expense-tracker", {
   useNewUrlParser: true,
-useUnifiedTopology:true});
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
-db.on('error', e =>{
-console.log(e)
+db.on("error", (e) => {
+  console.log(e);
 });
 
-db.once('open', () => console.log('mongodb connected successfully'))
+db.once("open", () => console.log("mongodb connected successfully"));
+
+module.exports = db;
