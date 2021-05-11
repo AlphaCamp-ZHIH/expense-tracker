@@ -36,10 +36,11 @@
       <div class="col-1  h-100">
         <h5>{{this.amount}}</h5>
       </div>
-      <div class="col-3 text-center">
+      <div class="col-3 d-flex text-center">
         <a class="btn btn-info" href="">修改</a>
-        <a class="btn btn-warning" href="">刪除</a>
-
+        <form action="/records/{{this._id}}?_method=Delete" method="POST">
+          <button type="submit" class="btn btn-warning">刪除</button>
+        </form>
       </div>
     </div>
     {{/each}}

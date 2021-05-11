@@ -12,7 +12,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const { name, category, amount, date, merchant } = req.body;
   if (!name || !category || !amount || !date) {
-    return res.render('new', { expense: req.body,...whichCategory(category), wrongMsg: "請填寫必填欄位" })
+    return res.render('new', { expense: req.body, ...whichCategory(category), wrongMsg: "請填寫必填欄位" })
   }
 
   Category.findOne({ name: category })
@@ -32,7 +32,14 @@ router.post('/', (req, res) => {
 
 })
 // 刪除支出
-  
+router.delete('/:id', (req, res) => {
+  const expenseId = req.params.id;
+  Record.findById(expenseId)
+    .then(expense => {
+      return expense.remove()
+    })
+    .then(() => res.redirect('/'))
+})
 
 
 module.exports = router
