@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     .lean()
     .then((expenses) => {
       const totalAmount = calculateTotalMount(expenses);
-      res.render("index", { expenses, totalAmount });
+      res.render("index", { expenses, totalAmount, title: "家庭記帳本" });
     });
 });
 
