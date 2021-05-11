@@ -4,6 +4,37 @@ const Category = require('../../models/category');
 const router = express.Router();
 const whichCategory = require('../../helper/helper').whichCategory;
 
+//編輯支出
+router.get('/:id/edit', (req, res) => {
+  const expenseId = req.params.id;
+  Record.findById(expenseId)
+    .lean()
+    .then(expense => {
+      res.render('edit', { expense, ...whichCategory(expense.category) });
+    });
+});
+
+router.put('/:id', (req, res) => {
+  const expenseId = req.params.id;
+  const { name, category, amount, date, merchant } = req.body;
+  if (!name || !category || !amount || !date) {
+    return res.render('edit', { expense: req.body, ...whichCategory(category), wrongMsg: "請填寫必填欄位" });
+  };
+  Category.findOne({ name: category })
+    .lean()
+    .then(category => {
+      Record.findById(expenseId)
+        .then(expence => {
+          const props = Object.keys(req.body);
+          props.map(prop => expence[prop] = req.body[prop])
+          expence.categoryIcon = category.icon;
+          return expence.save();
+        })
+    })
+    .then(() => res.redirect('/'))
+    .catch(e => console.log(e))
+})
+
 // 新增支出
 router.get('/new', (req, res) => {
   res.render('new');
@@ -26,10 +57,9 @@ router.post('/', (req, res) => {
         category: category.name,
         categoryIcon: category.icon
       })
-        .then(() => res.redirect('/'))
-        .catch(e => console.log(e))
     })
-
+    .then(() => res.redirect('/'))
+    .catch(e => console.log(e))
 })
 // 刪除支出
 router.delete('/:id', (req, res) => {
