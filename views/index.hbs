@@ -1,35 +1,32 @@
 <div class="container">
   <div class="row flex-column align-items-center no-gutters">
     <!-- 下拉 -->
-    <div class="col-6 row">
-  <div class="col-3 dropdown">
-    <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{#if ym}} {{ym}} {{else}}年月{{/if}}
-    </button>
-    <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
-      {{#each yms}}
-      <a class="dropdown-item w-100" href="/records/filter?ym={{this}}">{{this}}</a>
-      {{/each}}
-    </div>
-  </div>
-
-
-    <div class="col-9 dropdown">
-      <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{#if category_cht}} {{category_cht}} {{else}}類別{{/if}}
-      </button>
-      <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item w-100" href="/records/filter?category=home{{#if ym}}&&ym={{ym}}{{/if}}">家居物業</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=traffic{{#if ym}}&&ym={{ym}}{{/if}}">交通出行</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=entertainment{{#if ym}}&&ym={{ym}}{{/if}}">休閒娛樂</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=food{{#if ym}}&&ym={{ym}}{{/if}}">餐飲食品</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=other{{#if ym}}&&ym={{ym}}{{/if}}">其他</a>
-
+    <div class="col-6 row no-gutters justify-content-between">
+      <div class="col-2 dropdown">
+        <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{#if ym}} {{ym}} {{else}}年月{{/if}}
+        </button>
+        <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
+          {{#each yms}}
+          <a class="dropdown-item w-100" href="/records/filter?ym={{this}}">{{this}}</a>
+          {{/each}}
+        </div>
       </div>
-    </div>
+      <div class="col-9 dropdown">
+        <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{#if category_cht}} {{category_cht}} {{else}}類別{{/if}}
+        </button>
+        <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item w-100" href="/records/filter?category=home{{#if ym}}&&ym={{ym}}{{/if}}">家居物業</a>
+          <a class="dropdown-item w-100" href="/records/filter?category=traffic{{#if ym}}&&ym={{ym}}{{/if}}">交通出行</a>
+          <a class="dropdown-item w-100" href="/records/filter?category=entertainment{{#if ym}}&&ym={{ym}}{{/if}}">休閒娛樂</a>
+          <a class="dropdown-item w-100" href="/records/filter?category=food{{#if ym}}&&ym={{ym}}{{/if}}">餐飲食品</a>
+          <a class="dropdown-item w-100" href="/records/filter?category=other{{#if ym}}&&ym={{ym}}{{/if}}">其他</a>
 
+        </div>
+      </div>
     </div>
     <!-- 金額 -->
     <div class="row col-6 mb-5">
@@ -45,9 +42,7 @@
       <div class="col-6 d-flex flex-column justify-content-center">
 
         <h4 class="pt-3 font-weight-bold">{{this.name}}</h4>
-        <p class="pt-1 text-info">{{this.date}}<span class="text-info">-{{this.merchant}}</span></p>
-
-
+        <p class="pt-1 text-info">{{this.date}}<span class="text-info">{{#if this.merchant}}-{{this.merchant}}</span></p>{{/if}}
       </div>
       <div class="col-1  h-100">
         <h5>{{this.amount}}</h5>

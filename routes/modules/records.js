@@ -21,6 +21,7 @@ router.get("/filter", (req, res) => {
           expenses,
           totalAmount,
           category_cht: category_cht[category],
+          title:category_cht[category],
         });
       });
   }
@@ -32,7 +33,7 @@ router.get("/filter", (req, res) => {
         expenses = expenses.filter((expense) => {
           return expense.date.includes(ym);
         });
-        res.render("index", { expenses, ym });
+        res.render("index", { expenses, ym ,title:ym});
       });
   }
   if (ym && category) {
@@ -43,7 +44,11 @@ router.get("/filter", (req, res) => {
         expenses = expenses.filter((expense) => {
           return expense.date.includes(ym);
         });
-        res.render("index", { expenses, ym });
+        res.render("index", {
+          expenses,
+          ym,
+          title: ym + "-" + category_cht[category],
+        });
       });
   }
 });
@@ -54,7 +59,7 @@ router.get("/:id/edit", (req, res) => {
   Record.findById(expenseId)
     .lean()
     .then((expense) => {
-      res.render("edit", { expense, ...whichCategory(expense.category) });
+      res.render("edit", { expense, ...whichCategory(expense.category),title:"編輯支出" });
     });
 });
 
@@ -82,7 +87,7 @@ router.put("/:id", (req, res) => {
 
 // 新增支出
 router.get("/new", (req, res) => {
-  res.render("new");
+  res.render("new", { title: "新增支出" });
 });
 
 router.post("/", (req, res) => {
