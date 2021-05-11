@@ -1,19 +1,35 @@
 <div class="container">
   <div class="row flex-column align-items-center no-gutters">
     <!-- 下拉 -->
-    <div class="col-6 dropdown">
+    <div class="col-6 row">
+  <div class="col-3 dropdown">
+    <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{#if ym}} {{ym}} {{else}}年月{{/if}}
+    </button>
+    <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
+      {{#each yms}}
+      <a class="dropdown-item w-100" href="/records/filter?ym={{this}}">{{this}}</a>
+      {{/each}}
+    </div>
+  </div>
+
+
+    <div class="col-9 dropdown">
       <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{#if category_cht}} {{category_cht}} {{else}}類別{{/if}}
       </button>
       <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item w-100" href="/records/filter?category=home">家居物業</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=traffic">交通出行</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=entertainment">休閒娛樂</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=food">餐飲食品</a>
-        <a class="dropdown-item w-100" href="/records/filter?category=other">其他</a>
+        <a class="dropdown-item w-100" href="/records/filter?category=home{{#if ym}}&&ym={{ym}}{{/if}}">家居物業</a>
+        <a class="dropdown-item w-100" href="/records/filter?category=traffic{{#if ym}}&&ym={{ym}}{{/if}}">交通出行</a>
+        <a class="dropdown-item w-100" href="/records/filter?category=entertainment{{#if ym}}&&ym={{ym}}{{/if}}">休閒娛樂</a>
+        <a class="dropdown-item w-100" href="/records/filter?category=food{{#if ym}}&&ym={{ym}}{{/if}}">餐飲食品</a>
+        <a class="dropdown-item w-100" href="/records/filter?category=other{{#if ym}}&&ym={{ym}}{{/if}}">其他</a>
 
       </div>
+    </div>
+
     </div>
     <!-- 金額 -->
     <div class="row col-6 mb-5">
@@ -36,8 +52,8 @@
       <div class="col-1  h-100">
         <h5>{{this.amount}}</h5>
       </div>
-      <div class="col-3 d-flex text-center">
-        <a class="btn btn-info" href="/records/{{this._id}}/edit">修改</a>
+      <div class="col-3 d-flex text-center justify-content-end">
+        <a class="btn btn-info mr-3" href="/records/{{this._id}}/edit">修改</a>
         <form action="/records/{{this._id}}?_method=Delete" method="POST">
           <button type="submit" class="btn btn-warning">刪除</button>
         </form>

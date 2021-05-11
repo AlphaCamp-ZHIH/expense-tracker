@@ -3,23 +3,50 @@ const Record = require('../../models/record');
 const Category = require('../../models/category');
 const router = express.Router();
 const whichCategory = require('../../helper/helper').whichCategory;
-const calculateTotalMount =require('../../helper/helper').calculateTotalMount;
+const calculateTotalMount = require('../../helper/helper').calculateTotalMount;
 const category_cht = require('../../helper/helper').category_cht;
+const filterDate = require('../../helper/helper').filterDate
+
+
+
 
 
 //filter
 router.get('/filter', (req, res) => {
   const category = req.query.category;
-  // console.log(category);
-  Record.find({ category })
-    .sort({ _id: "asc" })
-    .lean()
-    .then(expenses => {
-      const totalAmount = calculateTotalMount(expenses);
-      res.render('index', { expenses, totalAmount, category_cht: category_cht[category]})
-    })
+  const ym = req.query.ym;
+  if (category && !ym) {
+    return Record.find({ category })
+      .sort({ date: "asc" })
+      .lean()
+      .then(expenses => {
+        const totalAmount = calculateTotalMount(expenses);
+        res.render('index', { expenses, totalAmount, category_cht: category_cht[category] })
+      })
+  }
+  if (ym && !category) {
+    return Record.find()
+      .sort({ date: 'asc' })
+      .lean()
+      .then(expenses => {
+        expenses = expenses.filter(expense => {
+          return expense.date.includes(ym)
+        })
+        res.render('index', { expenses, ym})
+      })
+  }
+  if (ym && category){
+    return Record.find({ category})
+      .sort({ date: 'asc' })
+      .lean()
+      .then(expenses => {
+        expenses = expenses.filter(expense => {
+          return expense.date.includes(ym)
+        })
+        res.render('index', { expenses, ym})
+      })
+  }
 })
-
 
 
 //編輯支出

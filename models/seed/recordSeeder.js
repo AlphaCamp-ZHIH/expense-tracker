@@ -6,18 +6,19 @@ const type = ["traffic",
   "home",
   "food",
   "other"]
+const randomNum = require('../../helper/helper').randomNum;
 
 
 db.once("open", () => {
   const data = Array.from({ length: 9 }, (_, i) => {
-    const randomNum = Math.floor(Math.random() * 5);
-    return Category.findOne({ name: type[randomNum] })
+
+    return Category.findOne({ name: type[randomNum(type.length)] })
       .lean()
       .then(category => {
 
         return Record.create({
           name: `name-${i}`,
-          date: `2021-05-1${i}`,
+          date: `2021-0${randomNum(8)+1}-1${i}`,
           category: category.name,
           categoryIcon: category.icon,
           amount: (i + 1) * 100,
