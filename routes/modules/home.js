@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   Record.find()
+    .sort({ date: 'asc' })
     .lean()
     .then((expenses) => {
       const totalAmount = calculateTotalMount(expenses);
