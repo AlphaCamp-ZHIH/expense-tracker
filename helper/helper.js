@@ -9,3 +9,10 @@ module.exports.whichCategory = (category) => {
   if (category === "food") return { isFood: true };
   if (category === "other") return { isOther: true };
 };
+module.exports.category_cht = {
+  home:"家居物業",
+  traffic:"交通出行",
+  entertainment:"休閒娛樂",
+  food:"餐飲食品",
+  other:"其他"
+}

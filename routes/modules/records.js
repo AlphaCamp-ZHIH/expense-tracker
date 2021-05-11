@@ -3,6 +3,24 @@ const Record = require('../../models/record');
 const Category = require('../../models/category');
 const router = express.Router();
 const whichCategory = require('../../helper/helper').whichCategory;
+const calculateTotalMount =require('../../helper/helper').calculateTotalMount;
+const category_cht = require('../../helper/helper').category_cht;
+
+
+//filter
+router.get('/filter', (req, res) => {
+  const category = req.query.category;
+  // console.log(category);
+  Record.find({ category })
+    .sort({ _id: "asc" })
+    .lean()
+    .then(expenses => {
+      const totalAmount = calculateTotalMount(expenses);
+      res.render('index', { expenses, totalAmount, category_cht: category_cht[category]})
+    })
+})
+
+
 
 //編輯支出
 router.get('/:id/edit', (req, res) => {
