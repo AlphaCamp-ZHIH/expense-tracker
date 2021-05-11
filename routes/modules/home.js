@@ -1,7 +1,6 @@
 const express = require("express");
 const Record = require("../../models/record");
 const calculateTotalMount = require("../../helper/helper").calculateTotalMount;
-const filterDate = require('../../helper/helper').filterDate
 const router = express.Router();
 
 router.get("/", (req, res) => {
