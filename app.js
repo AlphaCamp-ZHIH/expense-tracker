@@ -23,10 +23,11 @@ app.use((req, res, next) => {
     .lean()
     .then(expenses =>
       filterDate(expenses)
-    ).then(yms =>
-      res.locals.yms = yms
-    )
-  next();
+    ).then(yms => {
+      res.locals.yms = yms;
+      console.log(res.locals.yms)
+    }).then(() => next());
+
 });
 app.use(router);
 

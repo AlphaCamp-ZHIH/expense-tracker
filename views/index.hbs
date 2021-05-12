@@ -2,18 +2,18 @@
   <div class="row flex-column align-items-center no-gutters">
     <!-- 下拉 -->
     <div class="col-6 row no-gutters justify-content-between">
-      <div class="col-2 dropdown">
+      <div class="col-3 dropdown">
         <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{#if ym}} {{ym}} {{else}}年月{{/if}}
         </button>
         <div class="dropdown-menu w-100 " aria-labelledby="dropdownMenuButton">
           {{#each yms}}
-          <a class="dropdown-item w-100" href="/records/filter?ym={{this}}">{{this}}</a>
+          <a class="dropdown-item w-100 " href="/records/filter?ym={{this}}">{{this}}</a>
           {{/each}}
         </div>
       </div>
-      <div class="col-9 dropdown">
+      <div class="col-8 dropdown">
         <button class="btn btn-outline-dark dropdown-toggle w-100 pt-3 pb-3 mb-5 " type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{#if category_cht}} {{category_cht}} {{else}}類別{{/if}}
