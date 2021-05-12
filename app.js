@@ -25,7 +25,6 @@ app.use((req, res, next) => {
       filterDate(expenses)
     ).then(yms => {
       res.locals.yms = yms;
-      console.log(res.locals.yms)
     }).then(() => next());
 
 });
